@@ -9,21 +9,23 @@ import org.apache.commons.math3.stat.descriptive.moment.Variance;
 import scala.Tuple2;
 
 public class EntityNode {
-	private Integer token;
-	private int id;
-	private Set<Integer> blocks;
-	private TreeSet<TupleSimilarity> neighbors;
+	private String token;
+	private Long id;
+	private Set<String> blocks;
+	private TreeSet<TupleSimilarity2> neighbors;
 	private boolean isSource;
 	private int maxNumberOfNeighbors;
-	private int incrementId;
+	private Integer incrementId;
+	
+	private String text;
 	
 	
-	public EntityNode(int token, int id, Set<Integer> blocks, boolean isSource, int maxNumberOfNeighbors, int incrementId) {
+	public EntityNode(String token, Long id, Set<String> blocks, boolean isSource, int maxNumberOfNeighbors, Integer incrementId) {
 		super();
 		this.token = token;
 		this.id = id;
 		this.blocks = blocks;
-		this.neighbors = new TreeSet<TupleSimilarity>();
+		this.neighbors = new TreeSet<TupleSimilarity2>();
 		this.isSource = isSource;
 		this.maxNumberOfNeighbors = maxNumberOfNeighbors;
 		this.incrementId = incrementId;
@@ -31,7 +33,7 @@ public class EntityNode {
 	
 	public EntityNode() {
 		super();
-		this.id = -100;
+		this.id = -100L;
 		this.blocks = new HashSet<>();
 		this.neighbors = new TreeSet<>();
 		this.isSource = false;
@@ -48,27 +50,27 @@ public class EntityNode {
 	}
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 
-	public Set<Integer> getBlocks() {
+	public Set<String> getBlocks() {
 		return blocks;
 	}
 
 
-	public void setBlocks(Set<Integer> blocks) {
+	public void setBlocks(Set<String> blocks) {
 		this.blocks = blocks;
 	}
 
 
-	public Set<TupleSimilarity> getNeighbors() {
+	public Set<TupleSimilarity2> getNeighbors() {
 		return neighbors;
 	}
 	
@@ -83,22 +85,22 @@ public class EntityNode {
 //		this.neighbors.add(neighbor);
 //	}
 //	
-	public void addAllNeighbors(Set<TupleSimilarity> neighborsInput) {
+	public void addAllNeighbors(Set<TupleSimilarity2> neighborsInput) {
 		this.neighbors.addAll(neighborsInput);
 		while (neighbors.size() > maxNumberOfNeighbors) {
 			neighbors.pollLast();
 		}
 	}
 	
-	public void addNeighbor(TupleSimilarity neighbor) {
+	public void addNeighbor(TupleSimilarity2 tupleSimilarity2) {
 //		if (this.neighbors.contains(neighbor)) {
 //			this.neighbors.remove(neighbor);
 //			this.neighbors.add(neighbor);
 //		} else {
 //			this.neighbors.add(neighbor);
 //		}
-		if (!this.neighbors.contains(neighbor)) {
-			this.neighbors.add(neighbor);
+		if (!this.neighbors.contains(tupleSimilarity2)) {
+			this.neighbors.add(tupleSimilarity2);
 		}
 		
 		if (neighbors.size() > maxNumberOfNeighbors) {
@@ -118,9 +120,9 @@ public class EntityNode {
 	
 	public void pruningWNP() {
 		double threshold = getMeanDistribution();
-		TreeSet<TupleSimilarity> prunnedNeighbors = new TreeSet<>();
+		TreeSet<TupleSimilarity2> prunnedNeighbors = new TreeSet<>();
 		
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			if (neighbor.getValue() >= threshold) {
 				prunnedNeighbors.add(neighbor);
 			}
@@ -133,9 +135,9 @@ public class EntityNode {
 	public void pruningOutliers() {
 		Tuple2<Double, Double> meanAndDP = getMeanAndDPDistribution();
 		double threshold = meanAndDP._1() - meanAndDP._2();
-		TreeSet<TupleSimilarity> prunnedNeighbors = new TreeSet<>();
+		TreeSet<TupleSimilarity2> prunnedNeighbors = new TreeSet<>();
 		
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			if (neighbor.getValue() >= threshold) {
 				prunnedNeighbors.add(neighbor);
 			}
@@ -152,7 +154,7 @@ public class EntityNode {
 		double[] values = new double[neighbors.size()];
 		int index = 0;
 		
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			sumWeight += neighbor.getValue();
 			values[index] = neighbor.getValue();
 			if (neighbor.getValue() > maxSim) {
@@ -167,7 +169,7 @@ public class EntityNode {
 		double numberOfNeighbors = neighbors.size();
 		double sumWeight = 0.0;
 		
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			sumWeight += neighbor.getValue();
 		}
 		return sumWeight/numberOfNeighbors;
@@ -178,7 +180,7 @@ public class EntityNode {
 		double sumWeight = 0.0;
 		double maxSim = -1;
 		
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			sumWeight += neighbor.getValue();
 			if (neighbor.getValue() > maxSim) {
 				maxSim = neighbor.getValue();
@@ -187,12 +189,12 @@ public class EntityNode {
 		return new Tuple2<Double, Double>((sumWeight/numberOfNeighbors), maxSim);
 	}
 
-	public Integer getToken() {
+	public String getToken() {
 		return token;
 	}
 
 
-	public void setToken(Integer newToken) {
+	public void setToken(String newToken) {
 		this.token = newToken;
 	}
 
@@ -208,12 +210,20 @@ public class EntityNode {
 	public void setIncrementId(int incrementId) {
 		this.incrementId = incrementId;
 	}
+	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	@Override
 	public String toString() {
 //		String output = id + ":";
 		String output = "";
-		for (TupleSimilarity neighbor : neighbors) {
+		for (TupleSimilarity2 neighbor : neighbors) {
 			output += neighbor.getKey() + ",";
 		}
 		if (!neighbors.isEmpty()) {
@@ -222,6 +232,33 @@ public class EntityNode {
 			return output;
 		}
 		
+	}
+	
+//	@Override
+//	public String toString() {
+////		String output = id + ":";
+//		String output = "";
+//		for (TupleSimilarity2 neighbor : neighbors) {
+//			output += neighbor.getText() + "\n\n";
+//		}
+//		return output;
+////		if (!neighbors.isEmpty()) {
+////			return output.substring(0,output.length()-1);
+////		} else {
+////			return output;
+////		}
+//		
+//	}
+	
+	@Override
+	public int hashCode() {
+	    return id.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return id.equals(((EntityNode)obj).getId());
 	}
 
 }

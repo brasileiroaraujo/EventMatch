@@ -6,7 +6,7 @@ import java.util.Set;
 public class BlockStructure {
 	private Set<EntityNode> fromSource;
 	private Set<EntityNode> fromTarget;
-	private int id;
+	private String id;
 	private int currentIncrement;
 	
 	public BlockStructure() {
@@ -45,11 +45,11 @@ public class BlockStructure {
 		this.fromTarget = fromTarget;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -65,6 +65,11 @@ public class BlockStructure {
 
 	public int size() {
 		return fromSource.size() + fromTarget.size();
+	}
+	
+	@Override
+	public String toString() {
+		return getId() + ": " + fromSource.size() + " - " + fromTarget.size();
 	}
 	
 }
