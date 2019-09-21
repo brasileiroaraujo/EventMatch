@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Requires the installation of Tweepy library
 
 import time
@@ -45,7 +47,7 @@ class StreamWatcherListener(tweepy.StreamListener):
     def connect_mongoDB_Twitter(self):
         if self.db == None:
             client = MongoClient('mongodb://localhost:27017/EventsProject')
-            return client.EventProject.TwitterTeste
+            return client.EventProject.Round20
         else:
             return self.db
         

@@ -7,7 +7,7 @@ from itertools import count
 
 
 iid = count()
-list_to_stop = ['23:40']
+list_to_stop = ['13:20', '19:00', '21:00', '23:20']
 # Functions setup 
 def call_twitter():
     tk.main(list_to_stop[iid.__next__()])
@@ -20,10 +20,10 @@ def thread_get_twitter():
 
 
 print("Starting ...")
-schedule.every().wednesday.at('21:42').do(thread_get_twitter)
-# schedule.every().saturday.at('17:45').do(thread_get_twitter)
-# schedule.every().saturday.at('19:12').do(thread_get_twitter)
-# schedule.every().saturday.at('21:06').do(thread_get_twitter)
+schedule.every().saturday.at('11:12').do(thread_get_twitter)
+schedule.every().saturday.at('17:21').do(thread_get_twitter)
+schedule.every().saturday.at('19:11').do(thread_get_twitter)
+schedule.every().saturday.at('21:11').do(thread_get_twitter)
 
 # schedule.every().sunday.at('11:06').do(thread_get_twitter)
 # schedule.every().sunday.at('16:33').do(thread_get_twitter)

@@ -1,11 +1,11 @@
 package executers;
 
-import DataProducer.KafkaDataStreamingFootball;
+import DataProducer.ProducerAPIFootball;
 import PRIMEbigdata.PRIMEBigdataEvent;
 
 public class ThreadCreator {
 	private PRIMEBigdataEvent prime = new PRIMEBigdataEvent();
-	KafkaDataStreamingFootball kafkaMatches = new KafkaDataStreamingFootball();
+	ProducerAPIFootball kafkaMatches = new ProducerAPIFootball();
 	private Thread thread;
 
 	public ThreadCreator(String[] args, boolean flag) {

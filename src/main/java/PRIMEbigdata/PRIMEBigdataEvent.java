@@ -120,9 +120,6 @@ public class PRIMEBigdataEvent {
 				for (String tk : e.getAllTokens()) {
 					EntityNode node = new EntityNode(tk, e.getId(), e.getAllTokens(), false/*isTarget*/, Integer.parseInt(args[2]), null);
 					node.setText(e.getText().isEmpty()? e.getFullText() : e.getText());
-//					if (tk.contains("cor")) {
-//						System.out.println();
-//					}
 					output.collect(new Tuple2<String, EntityNode>(tk, node));
 				}
 				
@@ -161,9 +158,6 @@ public class PRIMEBigdataEvent {
 			
 			@Override
 			public String getKey(Tuple2<String, EntityNode> ent) throws Exception {
-//				if (ent.f0.contains("cor")) {
-//					System.out.println();
-//				}
 				return ent.f0;
 			}
 		}).window(SlidingProcessingTimeWindows.of(Time.seconds(300) /* size */, Time.seconds(30) /* slide */)).apply(new CoGroupFunction<Tuple2<String,EntityNode>, Tuple2<String,EntityNode>, BlockStructure>() {
@@ -179,9 +173,6 @@ public class PRIMEBigdataEvent {
 					}
 					
 					for (Tuple2<String, EntityNode> twitter : entitiesFromTwitter) {
-//						if (twitter.f0.contains("cor")) {
-//							System.out.println();
-//						}
 						block.addInTarget(twitter.f1);
 					}
 					collector.collect(block);
@@ -266,7 +257,7 @@ public class PRIMEBigdataEvent {
 		
 		
 		WindowedStream<Tuple2<Long, EntityNode>, Tuple, TimeWindow> entityNeighborhood = 
-				entitySimilarities.keyBy(0).timeWindow(Time.seconds(180), Time.seconds(60/*Integer.parseInt(args[3])*/));
+				entitySimilarities.keyBy(0).timeWindow(Time.minutes(Integer.parseInt(args[8])), Time.seconds(30));
 		
 		
 		SingleOutputStreamOperator<EntityNode> graph = entityNeighborhood.aggregate(new AggregateFunction<Tuple2<Long,EntityNode>, EntityNode, EntityNode>() {
@@ -314,10 +305,10 @@ public class PRIMEBigdataEvent {
 				node.pruningWNP();
 				return node.getId() + ">" + node.toString();
 			}
-		}).writeAsText(args[5] + args[7] + "-" + sdf.format(Calendar.getInstance().getTime()) + ".txt");
+		}).writeAsText(args[5] + args[7] + "-" + args[8] + "-" + sdf.format(Calendar.getInstance().getTime()) + ".txt");
 		
 		
-		env.execute("PRIME" + args[7]);
+		env.execute("PRIME" + args[7] + "-" + args[8]);
 	}
 	
 	public void stop() {

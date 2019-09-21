@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import org.apache.jena.sparql.function.library.date;
 
-import DataProducer.KafkaDataStreamingFootball;
 import FootballApi.FootballAPImain;
 import PRIMEbigdata.PRIMEBigdataEvent;
 import executers.AutoExecuter;
@@ -19,35 +18,39 @@ public class SchedulePrime {
     public SchedulePrime() {
         //Get the Date corresponding to 11:01:00 pm today.
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 39);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 11);
         calendar.set(Calendar.SECOND, 0);
         Date timeStart = calendar.getTime();
         timer = new Timer();
         
-        // 94656: Flamengo - Santos 17hrs
-//        String listIds1 = "94656";
+//        String listIds1 = "94662";
 //        timer.schedule(new RemindTask(false, listIds1), timeStart);
         
         
-        // 94655: Chapecoense-sc - Vasco DA Gama
-        // 94659: Palmeiras - Cruzeiro
-//        String listIds2 = "94655 94659";
-//        calendar.set(Calendar.HOUR_OF_DAY, 19);
-//        calendar.set(Calendar.MINUTE, 5);
-//        calendar.set(Calendar.SECOND, 0);
-//        timeStart = calendar.getTime();
-//        timer.schedule(new RemindTask(false, listIds2), timeStart);
+        String listIds2 = "94664";
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.SECOND, 0);
+        timeStart = calendar.getTime();
+        timer.schedule(new RemindTask(false, listIds2), timeStart);
         
         
-        // 94654: Ceara - Botafogo
-//        String listIds3 = "94654";
-//        calendar.set(Calendar.HOUR_OF_DAY, 21);
-//        calendar.set(Calendar.MINUTE, 5);
-//        calendar.set(Calendar.SECOND, 0);
-//        timeStart = calendar.getTime();
-//        timer.schedule(new RemindTask(false, listIds3), timeStart);
+        String listIds3 = "94663";
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.SECOND, 0);
+        timeStart = calendar.getTime();
+        timer.schedule(new RemindTask(false, listIds3), timeStart);
+        
+        
+        String listIds4 = "94669";
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.SECOND, 0);
+        timeStart = calendar.getTime();
+        timer.schedule(new RemindTask(false, listIds4), timeStart);
         
         
         //Domingo
