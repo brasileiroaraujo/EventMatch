@@ -27,9 +27,9 @@ public class FootballAPImain {
 //		System.out.println(MatchesPerLeagueAndDate("357", "2019-08-11"));
 		
 		//results of matches per league (ID) and round (number)
-		result = MatchesPerLeagueAndRound("357", "20", false); //"357", "18", false   "282", "Finals", true
+		result = MatchesPerLeagueAndRound("357", "22", false); //"357", "18", false   "282", "Finals", true
 		JSONObject json = JsonManager.parserToJson(result);
-		saveMatch(json, "C:\\Users\\Brasileiro\\eclipse\\workspace2\\EventMatching\\inputsFootball\\round20");
+		saveMatch(json, "C:\\Users\\Brasileiro\\eclipse\\workspace2\\EventMatching\\inputsFootball\\round22");
 //		Integer[] x = {94657, 94658, 94653};
 //		ArrayList<Integer> listIds = new ArrayList<Integer>();
 //		listIds.add(94657);
@@ -37,7 +37,7 @@ public class FootballAPImain {
 //		listIds.add(243014);
 //		
 //		updateMatch("C:\\Users\\Brasileiro\\eclipse\\workspace2\\EventMatching\\inputsFootball\\final_brazilcup-players", listIds);
-		for (MatchAPI m : loadMatch("C:\\Users\\Brasileiro\\eclipse\\workspace2\\EventMatching\\inputsFootball\\round20")) {//round19 final_brazilcup-players
+		for (MatchAPI m : loadMatch("C:\\Users\\Brasileiro\\eclipse\\workspace2\\EventMatching\\inputsFootball\\round22")) {//round19 final_brazilcup-players
 			System.out.println(m.getId() + ": " + m.getHome().getName() + " - " + m.getAway().getName() + " > " + m.getPlayers().size() + " - " + m.getHome().getNicknames().split(",").length + " - " + m.getAway().getNicknames().split(",").length);
 		}
 		

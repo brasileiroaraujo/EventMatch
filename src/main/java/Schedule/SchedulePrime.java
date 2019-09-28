@@ -29,25 +29,25 @@ public class SchedulePrime {
 //        timer.schedule(new RemindTask(false, listIds1), timeStart);
         
         
-        String listIds2 = "94664";
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 15);
-        calendar.set(Calendar.SECOND, 0);
-        timeStart = calendar.getTime();
-        timer.schedule(new RemindTask(false, listIds2), timeStart);
+//        String listIds2 = "94664";
+//        calendar.set(Calendar.HOUR_OF_DAY, 17);
+//        calendar.set(Calendar.MINUTE, 15);
+//        calendar.set(Calendar.SECOND, 0);
+//        timeStart = calendar.getTime();
+//        timer.schedule(new RemindTask(false, listIds2), timeStart);
         
         
-        String listIds3 = "94663";
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE, 10);
-        calendar.set(Calendar.SECOND, 0);
-        timeStart = calendar.getTime();
-        timer.schedule(new RemindTask(false, listIds3), timeStart);
+//        String listIds3 = "94663";
+//        calendar.set(Calendar.HOUR_OF_DAY, 19);
+//        calendar.set(Calendar.MINUTE, 13);
+//        calendar.set(Calendar.SECOND, 0);
+//        timeStart = calendar.getTime();
+//        timer.schedule(new RemindTask(false, listIds3), timeStart);
         
         
         String listIds4 = "94669";
         calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.MINUTE, 13);
         calendar.set(Calendar.SECOND, 0);
         timeStart = calendar.getTime();
         timer.schedule(new RemindTask(false, listIds4), timeStart);
